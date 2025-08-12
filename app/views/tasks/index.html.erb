@@ -1,0 +1,21 @@
+
+<%# # la listes des taches et pour chaque taches je veux le titre la description de la tache et
+une input checkbox comleted avec la tache fait cocher %>
+
+
+<h1>TODO LIST</h1>
+
+<ul>
+  <% @tasks.each do |task| %>
+    <li>
+      <%= link_to task.title, task_path(task) %> - <%= task.details %>
+
+      <%= form_with(model: task, url: task_path(task), method: :patch, local: true) do |form| %>
+        <%= form.check_box :completed, { checked: task.completed, onchange: "this.form.submit()" } %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+
+<%= link_to "Add tasks", tasks_new_path %>
